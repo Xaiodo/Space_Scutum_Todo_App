@@ -20,8 +20,8 @@ class TaskAdapter extends TypeAdapter<Task> {
       id: fields[0] as String,
       title: fields[1] as String,
       description: fields[2] as String?,
-      completed: fields[3] as bool,
-      filter: fields[4] as TaskFilter,
+      isCompleted: fields[3] as bool,
+      category: fields[4] as TaskCategory,
     );
   }
 
@@ -36,9 +36,9 @@ class TaskAdapter extends TypeAdapter<Task> {
       ..writeByte(2)
       ..write(obj.description)
       ..writeByte(3)
-      ..write(obj.completed)
+      ..write(obj.isCompleted)
       ..writeByte(4)
-      ..write(obj.filter);
+      ..write(obj.category);
   }
 
   @override
