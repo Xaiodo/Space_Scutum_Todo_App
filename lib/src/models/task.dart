@@ -13,6 +13,7 @@ class Task extends Equatable {
     this.completed = false,
   });
 
+  // This annotation tells Hive to generate fields for these values
   @HiveField(0)
   final String id;
   @HiveField(1)
@@ -36,20 +37,6 @@ class Task extends Equatable {
       completed: completed ?? this.completed,
     );
   }
-
-  factory Task.fromJson(Map<String, dynamic> json) => Task(
-        id: json['id'] as String,
-        title: json['title'] as String,
-        description: json['description'] as String?,
-        completed: json['completed'] as bool,
-      );
-
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'title': title,
-        'description': description,
-        'completed': completed,
-      };
 
   // props is used by Equatable to compare objects for equality (==)
   @override
