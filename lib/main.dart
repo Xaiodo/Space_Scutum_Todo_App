@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:space_scutum_todo_app/src/helpers/hive_helper.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize Hive
+  await HiveHelper.init();
+
   runApp(const MyApp());
 }
 
