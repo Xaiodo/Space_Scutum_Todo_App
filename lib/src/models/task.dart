@@ -13,7 +13,7 @@ class Task extends Equatable {
     required this.id,
     required this.title,
     this.description,
-    this.completed = false,
+    this.isCompleted = false,
     this.filter = TaskFilter.personal,
   });
 
@@ -25,7 +25,7 @@ class Task extends Equatable {
   @HiveField(2)
   final String? description;
   @HiveField(3)
-  final bool completed;
+  final bool isCompleted;
   @HiveField(4)
   final TaskFilter filter;
 
@@ -34,19 +34,19 @@ class Task extends Equatable {
     String? id,
     String? title,
     String? description,
-    bool? completed,
+    bool? isCompleted,
     TaskFilter? filter,
   }) {
     return Task(
       id: id ?? this.id,
       title: title ?? this.title,
       description: description ?? this.description,
-      completed: completed ?? this.completed,
+      isCompleted: isCompleted ?? this.isCompleted,
       filter: filter ?? this.filter,
     );
   }
 
   // props is used by Equatable to compare objects for equality (==)
   @override
-  List<Object?> get props => [id, title, description, completed, filter];
+  List<Object?> get props => [id, title, description, isCompleted, filter];
 }
