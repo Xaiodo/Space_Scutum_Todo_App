@@ -1,9 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:space_scutum_todo_app/src/pages/add_task/ask_task.dart';
 
 import '../../../enums/task_category.dart';
 import '../home.dart';
 
-class HomeCubit extends Cubit<HomeState> {
+class HomeCubit extends Cubit<HomeState> implements AddTaskCallback {
   HomeCubit(TaskDAO taskDao)
       : _taskDao = taskDao,
         super(const HomeState()) {
@@ -71,6 +72,7 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   // Method to add a new task
+  @override
   void addTask(Task task) {
     emit(state.copyWith(status: HomeStates.loading));
 
