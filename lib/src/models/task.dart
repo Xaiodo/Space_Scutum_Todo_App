@@ -1,11 +1,12 @@
 import 'package:equatable/equatable.dart';
 import 'package:hive/hive.dart';
-import 'package:space_scutum_todo_app/src/enums/task_category.dart';
+
+import '../enums/task_category.dart';
 
 part 'task.g.dart';
 
 // This annotation tells Hive to generate a TypeAdapter
-@HiveType(typeId: 1, adapterName: 'TaskAdapter')
+@HiveType(typeId: 0, adapterName: 'TaskAdapter')
 class Task extends Equatable {
   const Task({
     required this.id,
