@@ -1,7 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:space_scutum_todo_app/src/pages/add_task/ask_task.dart';
 
-import '../../../enums/task_category.dart';
 import '../home.dart';
 
 class HomeCubit extends Cubit<HomeState> implements AddTaskCallback {
