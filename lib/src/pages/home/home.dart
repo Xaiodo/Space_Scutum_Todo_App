@@ -9,3 +9,5 @@ export 'state/home_state.dart';
 export 'widgets/home_state_error.dart';
 export 'widgets/home_state_loaded.dart';
 export 'widgets/home_state_loading.dart';
+export 'widgets/task_filter_carousel.dart';
+export '../../enums/task_category.dart';
