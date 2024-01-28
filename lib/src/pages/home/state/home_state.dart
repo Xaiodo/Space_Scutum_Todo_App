@@ -1,8 +1,6 @@
 import 'package:equatable/equatable.dart';
-import '../../../enums/task_status.dart';
-import '../../../models/task.dart';
 
-import '../../../enums/task_category.dart';
+import '../home.dart';
 
 // This enum is used to indicate the status of the HomeState
 enum HomeStates {
