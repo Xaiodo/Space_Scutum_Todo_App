@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import '../ask_task.dart';
 
 // Add task page states enum.
-enum AddTaskStates { loading, error, loaded }
+enum AddTaskStates { loading, error, loaded, popPage }
 
 class AddTaskState extends Equatable {
   const AddTaskState({

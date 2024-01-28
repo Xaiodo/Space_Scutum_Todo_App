@@ -61,7 +61,7 @@ class AddTaskCubit extends Cubit<AddTaskState> {
       // Add the task to the home state and database.
       _addTaskCallback.addTask(task);
 
-      emit(state.copyWith(status: AddTaskStates.loaded));
+      emit(state.copyWith(status: AddTaskStates.popPage));
     } catch (e) {
       emit(
         state.copyWith(

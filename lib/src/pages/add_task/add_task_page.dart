@@ -28,6 +28,14 @@ class AddTaskPageView extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              BlocListener<AddTaskCubit, AddTaskState>(
+                listener: (context, state) {
+                  if (state.status == AddTaskStates.popPage) {
+                    Navigator.pop(context);
+                  }
+                },
+                child: Container(),
+              ),
               const SizedBox(height: 16),
               BlocBuilder<AddTaskCubit, AddTaskState>(
                 builder: (context, state) {

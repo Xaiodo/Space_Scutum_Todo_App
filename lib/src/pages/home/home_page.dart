@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../add_task/add_task_page.dart';
 import 'widgets/task_filter_carousel.dart';
 import 'home.dart';
 
@@ -46,7 +47,12 @@ class HomePageView extends StatelessWidget {
           ],
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () => {},
+          onPressed: () => Navigator.of(context)
+            ..push(
+              MaterialPageRoute(
+                builder: (context) => const AddTaskPage(),
+              ),
+            ),
           shape: const CircleBorder(),
           child: const Icon(Icons.add),
         ),
