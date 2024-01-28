@@ -13,7 +13,7 @@ class HomeStateLoaded extends StatelessWidget {
       ? SizedBox(
           height: MediaQuery.of(context).size.height * 0.4,
           child: const Center(
-            child: Text('Create your first task!'),
+            child: Text('There are no tasks yet'),
           ),
         )
       : Expanded(
