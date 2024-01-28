@@ -15,45 +15,45 @@ class HomePageView extends StatelessWidget {
   const HomePageView({super.key});
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          title: const Text('Here are gonna be weather widget here'),
-        ),
-        body: Column(
-          children: [
-            const TaskFilterCarousel(
-              isCategory: true,
+  Widget build(BuildContext context) => BlocBuilder<HomeCubit, HomeState>(
+        builder: (context, state) {
+          return Scaffold(
+            appBar: AppBar(
+              title: const Text('Here are gonna be weather widget here'),
             ),
-            const SizedBox(height: 16),
-            const TaskFilterCarousel(
-              isCategory: false,
-            ),
-            const SizedBox(height: 16),
-            BlocBuilder<HomeCubit, HomeState>(
-              builder: (context, state) {
+            body: Column(
+              children: [
+                TaskFilterCarousel(
+                  isCategory: true,
+                  taskCategory: state.taskCategory,
+                ),
+                const SizedBox(height: 16),
+                TaskFilterCarousel(
+                  isCategory: false,
+                  tasksStatus: state.tasksStatus,
+                ),
+                const SizedBox(height: 16),
                 switch (state.status) {
-                  case HomeStates.loading:
-                    return const HomeStateLoading();
-                  case HomeStates.error:
-                    return const HomeStateError();
-                  case HomeStates.loaded:
-                    return HomeStateLoaded(tasks: state.getSortedTasks);
-                  default:
-                    return const SizedBox.shrink();
+                  HomeStates.initial => const HomeStateLoading(),
+                  HomeStates.loading => const HomeStateLoading(),
+                  HomeStates.loaded => HomeStateLoaded(
+                      tasks: state.getSortedTasks,
+                    ),
+                  HomeStates.error => const HomeStateError(),
                 }
-              },
+              ],
             ),
-          ],
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () => Navigator.of(context)
-            ..push(
-              MaterialPageRoute(
-                builder: (context) => const AddTaskPage(),
-              ),
+            floatingActionButton: FloatingActionButton(
+              onPressed: () => Navigator.of(context)
+                ..push(
+                  MaterialPageRoute(
+                    builder: (context) => const AddTaskPage(),
+                  ),
+                ),
+              shape: const CircleBorder(),
+              child: const Icon(Icons.add),
             ),
-          shape: const CircleBorder(),
-          child: const Icon(Icons.add),
-        ),
+          );
+        },
       );
 }

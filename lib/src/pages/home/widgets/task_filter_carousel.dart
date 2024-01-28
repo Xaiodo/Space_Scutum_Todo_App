@@ -1,35 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../enums/task_category.dart';
+
 import '../home.dart';
 
 class TaskFilterCarousel extends StatelessWidget {
   const TaskFilterCarousel({
     super.key,
     required this.isCategory,
+    this.taskCategory,
+    this.tasksStatus,
   });
 
   final bool isCategory;
+  final TaskCategory? taskCategory;
+  final TaskStatus? tasksStatus;
 
-  Color? getItemColor(bool isCategory, int index, HomeState state) {
-    if (isCategory) {
-      return TaskCategory.values[index] == state.taskCategory
+  Color? getItemColor(
+    bool isCategory,
+    int index,
+    TaskCategory? taskCategory,
+    TaskStatus? tasksStatus,
+  ) {
+    if (isCategory && taskCategory != null) {
+      return TaskCategory.values[index] == taskCategory
           ? Colors.blue
           : Colors.grey[200];
     } else {
-      return TaskStatus.values[index] == state.tasksStatus
+      return TaskStatus.values[index] == tasksStatus
           ? Colors.blue
           : Colors.grey[200];
     }
   }
 
-  Color? getTextColor(bool isCategory, int index, HomeState state) {
-    if (isCategory) {
-      return TaskCategory.values[index] == state.taskCategory
+  Color? getTextColor(
+    bool isCategory,
+    int index,
+    TaskCategory? taskCategory,
+    TaskStatus? tasksStatus,
+  ) {
+    if (isCategory && taskCategory != null) {
+      return TaskCategory.values[index] == taskCategory
           ? Colors.white
           : Colors.black;
     } else {
-      return TaskStatus.values[index] == state.tasksStatus
+      return TaskStatus.values[index] == tasksStatus
           ? Colors.white
           : Colors.black;
     }
@@ -66,19 +80,27 @@ class TaskFilterCarousel extends StatelessWidget {
           separatorBuilder: (context, index) => const SizedBox(width: 16),
           itemBuilder: (context, index) => GestureDetector(
             onTap: () => onTaskFilterChanged(index, context),
-            child: BlocBuilder<HomeCubit, HomeState>(
-              builder: (context, state) => Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                decoration: BoxDecoration(
-                  color: getItemColor(isCategory, index, state),
-                  borderRadius: BorderRadius.circular(20),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              decoration: BoxDecoration(
+                color: getItemColor(
+                  isCategory,
+                  index,
+                  taskCategory,
+                  tasksStatus,
                 ),
-                child: Center(
-                  child: Text(
-                    getTextForItem(isCategory, index),
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: getTextColor(isCategory, index, state),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Center(
+                child: Text(
+                  getTextForItem(isCategory, index),
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: getTextColor(
+                      isCategory,
+                      index,
+                      taskCategory,
+                      tasksStatus,
                     ),
                   ),
                 ),
