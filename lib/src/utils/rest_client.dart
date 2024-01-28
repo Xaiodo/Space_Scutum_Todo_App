@@ -25,9 +25,6 @@ class RestClient {
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? data,
   }) async {
-    print('Full url path ${_dio.options.baseUrl}$endpoint');
-    print('Query parameters $queryParameters');
-    print('Data $data');
     final result = await _dio.get(
       endpoint,
       queryParameters: queryParameters,
