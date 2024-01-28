@@ -1,5 +1,8 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:space_scutum_todo_app/src/services/weather_service.dart';
+import 'package:space_scutum_todo_app/src/utils/rest_client.dart';
 
 import '../dao/task_dao_hive_impl.dart';
 
@@ -15,6 +18,17 @@ class DependeciesProvider extends StatelessWidget {
           RepositoryProvider(
             create: (context) => TaskDAOHiveImpl(),
           ),
+          RepositoryProvider(create: (context) => Dio()),
+          RepositoryProvider(
+            create: (context) => RestClient(
+              dio: context.read(),
+            ),
+          ),
+          RepositoryProvider(
+            create: (context) => WeatherService(
+              restClient: context.read(),
+            ),
+          )
         ],
         child: child,
       );
