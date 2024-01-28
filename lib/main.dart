@@ -5,6 +5,8 @@ import 'package:space_scutum_todo_app/src/pages/home/home.dart';
 import 'package:space_scutum_todo_app/src/pages/home/home_page.dart';
 import 'package:space_scutum_todo_app/src/providers/dependecies_provider.dart';
 
+import 'src/services/weather_service.dart';
+
 Future<void> main() async {
   // Ensure that all the widgets are initialized then initialize Hive and other things.
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,7 +25,8 @@ class MyApp extends StatelessWidget {
         // Injected the HomeCubit here to ensure the availability of context when adding a task page.
         child: BlocProvider(
           create: (context) => HomeCubit(
-            context.read<TaskDAOHiveImpl>(),
+            taskDao: context.read<TaskDAOHiveImpl>(),
+            weatherService: context.read<WeatherService>(),
           ),
           child: MaterialApp(
             title: 'Space Scutum Todo App',
