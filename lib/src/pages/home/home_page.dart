@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../add_task/add_task_page.dart';
 import 'home.dart';
+import 'widgets/weather_app_bar/weather_app_bar.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -18,11 +19,21 @@ class HomePageView extends StatelessWidget {
   Widget build(BuildContext context) => BlocBuilder<HomeCubit, HomeState>(
         builder: (context, state) {
           return Scaffold(
-            appBar: AppBar(
-              title: const Text('Here are gonna be weather widget here'),
+            appBar: PreferredSize(
+              preferredSize: const Size.fromHeight(kToolbarHeight),
+              child: switch (state.status) {
+                HomeStates.initial => const WeatherAppBarLoading(),
+                HomeStates.loading => const WeatherAppBarLoading(),
+                HomeStates.loaded => WeatherAppBarLoaded(
+                    weather: state.weather,
+                    imageUrl: state.weather.getImageUrl,
+                  ),
+                HomeStates.error => const WeatherAppBarError(),
+              },
             ),
             body: Column(
               children: [
+                const SizedBox(height: 16),
                 TaskFilterCarousel(
                   isCategory: true,
                   taskCategory: state.taskCategory,
