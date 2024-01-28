@@ -1,11 +1,15 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:space_scutum_todo_app/src/pages/add_task/ask_task.dart';
+import 'package:space_scutum_todo_app/src/services/weather_service.dart';
 
 import '../home.dart';
 
 class HomeCubit extends Cubit<HomeState> implements AddTaskCallback {
-  HomeCubit(TaskDAO taskDao)
-      : _taskDao = taskDao,
+  HomeCubit({
+    required TaskDAO taskDao,
+    required WeatherService weatherService,
+  })  : _taskDao = taskDao,
+        _weatherService = weatherService,
         super(const HomeState()) {
     init();
   }
@@ -13,14 +17,25 @@ class HomeCubit extends Cubit<HomeState> implements AddTaskCallback {
   // The DAO instance to access the database
   final TaskDAO _taskDao;
 
+  // The weather service instance to get weather data
+  final WeatherService _weatherService;
+
   // Initialize the state with the tasks from the database
-  void init() {
+  Future<void> init() async {
     emit(state.copyWith(status: HomeStates.loading));
 
-    final tasks = _taskDao.getAllTasks();
-
     try {
-      emit(state.copyWith(tasks: tasks, status: HomeStates.loaded));
+      final tasks = _taskDao.getAllTasks();
+
+      final weather = await _weatherService.getCurrentWeather('London');
+
+      emit(
+        state.copyWith(
+          tasks: tasks,
+          weather: weather,
+          status: HomeStates.loaded,
+        ),
+      );
     } catch (e) {
       emit(state.copyWith(status: HomeStates.error));
     }

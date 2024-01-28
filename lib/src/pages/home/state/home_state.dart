@@ -16,12 +16,14 @@ class HomeState extends Equatable {
     this.status = HomeStates.initial,
     this.taskCategory = TaskCategory.all,
     this.tasksStatus = TaskStatus.all,
+    this.weather = const Weather.initial(),
   });
 
   final List<Task> tasks;
   final HomeStates status;
   final TaskCategory taskCategory;
   final TaskStatus tasksStatus;
+  final Weather weather;
 
   // copyWith is used to create a new HomeState object with updated values from the original
   HomeState copyWith({
@@ -29,12 +31,14 @@ class HomeState extends Equatable {
     HomeStates? status,
     TaskCategory? taskCategory,
     TaskStatus? tasksStatus,
+    Weather? weather,
   }) {
     return HomeState(
       tasks: tasks ?? this.tasks,
       status: status ?? this.status,
       taskCategory: taskCategory ?? this.taskCategory,
       tasksStatus: tasksStatus ?? this.tasksStatus,
+      weather: weather ?? this.weather,
     );
   }
 
@@ -51,5 +55,11 @@ class HomeState extends Equatable {
 
   // props is used by Equatable to compare objects for equality (==)
   @override
-  List<Object?> get props => [tasks, taskCategory, status, tasksStatus];
+  List<Object?> get props => [
+        tasks,
+        taskCategory,
+        status,
+        tasksStatus,
+        weather,
+      ];
 }

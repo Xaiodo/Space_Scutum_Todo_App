@@ -11,3 +11,4 @@ export 'widgets/home_state_loaded.dart';
 export 'widgets/home_state_loading.dart';
 export 'widgets/task_filter_carousel.dart';
 export '../../enums/task_category.dart';
+export '../../models/weather.dart';
